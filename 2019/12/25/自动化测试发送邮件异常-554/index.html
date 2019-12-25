@@ -7,24 +7,25 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 其他 - 月满轩尼诗的博客</title>
+<title>自动化测试发送邮件异常 - 月满轩尼诗的博客</title>
 
 
-    <meta name="description" content="Hexo 博客  主题--&gt;ICARUS">
-<meta property="og:type" content="website">
-<meta property="og:title" content="月满轩尼诗的博客">
-<meta property="og:url" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;tags&#x2F;%E5%85%B6%E4%BB%96&#x2F;index.html">
+    <meta name="description" content="​    今天在学习发送邮件的时候遇到了几个问题，这边一是记录一下 二是给同样遇到问题的同学解惑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自动化测试发送邮件异常">
+<meta property="og:url" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E5%BC%82%E5%B8%B8-554&#x2F;index.html">
 <meta property="og:site_name" content="月满轩尼诗的博客">
-<meta property="og:description" content="Hexo 博客  主题--&gt;ICARUS">
+<meta property="og:description" content="​    今天在学习发送邮件的时候遇到了几个问题，这边一是记录一下 二是给同样遇到问题的同学解惑">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;og_image.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;20191226&#x2F;error_bg.png">
+<meta property="article:published_time" content="2019-12-25T09:29:17.000Z">
+<meta property="article:modified_time" content="2019-12-25T11:22:24.000Z">
 <meta property="article:author" content="2zyyyyy">
-<meta property="article:tag" content="Hexo">
-<meta property="article:tag" content="Hexo个人博客">
-<meta property="article:tag" content="2zyyyyy个人博客">
-<meta property="article:tag" content="月满轩尼诗个人博客">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Smtplib">
+<meta property="article:tag" content="Email">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;og_image.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;20191226&#x2F;error_bg.png">
 
 
 
@@ -82,7 +83,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="月满轩尼诗的博客" height="28">
+                <img src="/images/logo.svg" alt="自动化测试发送邮件异常" height="28">
             
             </a>
         </div>
@@ -131,135 +132,137 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/20191226/error_bg.png" alt="自动化测试发送邮件异常">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-25T09:29:17.000Z">2019-12-25</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Python/">Python</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 428 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                自动化测试发送邮件异常
+            
+        </h1>
+        <div class="content">
+            <p>​    今天在学习发送邮件的时候遇到了几个问题，这边一是记录一下 二是给同样遇到问题的同学解惑</p>
+<a id="more"></a>
+
+<p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ga93dd5jzej30u908hab1.jpg" alt="异常截图"></p>
+<p>1、这个问题我发生的原因是163邮箱 SMTP协议未开启，如果已开启还是报这个错误尝试重新开启一次。开启之后是设置变量也好还是input密码记住不能用163邮箱的登录密码，而是需要使用设置的客户端授权密码。以上针对我出现的这个问题得到了解决。<br>2、看廖雪峰的简单邮件实例发现自己运行后报554，官方解释就是被屏蔽了。</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">from email.mime.text import MIMEText</span><br><span class="line">import smtplib</span><br><span class="line">from email.header import Header</span><br><span class="line"></span><br><span class="line">msg &#x3D; MIMEText(&#39;真的不知道是什么原因&#39;, &#39;plain&#39;, &#39;utf-8&#39;)</span><br><span class="line"># 输入Email地址和口令:</span><br><span class="line">from_addr &#x3D; &#39;xxx@163.com&#39;</span><br><span class="line">password &#x3D; &#39;客户端授权密码&#39;</span><br><span class="line"></span><br><span class="line"># 输入收件人信息:</span><br><span class="line">to_addr &#x3D; &#39;xxx@qq.com&#39;</span><br><span class="line"># 输入SMTP服务器地址:</span><br><span class="line">smtp_server &#x3D; &#39;smtp.163.com&#39;</span><br><span class="line"></span><br><span class="line">server &#x3D; smtplib.SMTP(smtp_server, 25)  # SMTP协议默认端口是25</span><br><span class="line">server.set_debuglevel(1)  # 打印出和SMTP服务器交互的所有信息</span><br><span class="line">server.login(from_addr, password)</span><br><span class="line">server.sendmail(from_addr, [to_addr], msg.as_string())</span><br><span class="line">server.quit()</span><br><span class="line">print(&#39;success&#39;)</span><br></pre></td></tr></table></figure>
+<p>这样的163–&gt;qq 邮箱的（别的我没有试过）是不会成功的，一直报554的错误。我网上找了几个办法好像都行不通。后来我仔细琢磨了一下屏蔽原因会不会是右键内容太过单调而导致的呢。于是我新增了几个属性</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msg[&#39;Subject&#39;] &#x3D; Header(&#39;放假通知&#39;, &#39;utf-8&#39;)</span><br><span class="line">msg[&#39;From&#39;] &#x3D; &#39;xxx@163.com&#39;</span><br><span class="line">msg[&#39;To&#39;] &#x3D; &quot;xxx@qq.com&quot;</span><br></pre></td></tr></table></figure>
+<p>运行成功。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Email/" rel="tag">Email</a>, <a class="has-link-grey -link" href="/tags/Python/" rel="tag">Python</a>, <a class="has-link-grey -link" href="/tags/Smtplib/" rel="tag">Smtplib</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">其他</a></li>
-        </ul>
-        </nav>
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="微信"></div>
+</a>
+
+                
+        </div>
     </div>
 </div>
 
-    
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/">
+                <span class="level-item">本地图片测试</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
 <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/" class="image is-7by1">
-            <img class="thumbnail" src="/images/20191225/test.png" alt="本地图片测试">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-12-25T06:58:17.000Z">2019-12-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 134 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/">本地图片测试</a>
-            
-        </h1>
-        <div class="content">
-            <p>测试图片显示<br>本地图片显示测试</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: true,
+        verify: false,
+        app_id: 'Hcp5rbETAiz3thbwIg3y6bi0-gzGzoHsz',
+        app_key: 'EWXPJIEeuFdSYA9v6Ia6fvFm',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！吐槽一番吧！'
+    });
+</script>
+
     </div>
 </div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/12/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/" class="image is-7by1">
-            <img class="thumbnail" src="/images/20191211/migrate.jpg" alt="我的第一篇Hexo博客">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-12-11T02:21:00.000Z">2019-12-11</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    几秒 读完 (大约 83 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/12/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/">我的第一篇Hexo博客</a>
-            
-        </h1>
-        <div class="content">
-            <p>原CSDN博客迁移说明<br><a href="https://blog.csdn.net/qq_31568297" target="_blank" rel="noopener">https://blog.csdn.net/qq_31568297</a> </p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/12/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 </div>
                 
 
@@ -750,7 +753,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="月满轩尼诗的博客" height="28">
+                    <img src="/images/logo.svg" alt="自动化测试发送邮件异常" height="28">
                 
                 </a>
                 <p class="is-size-7">
