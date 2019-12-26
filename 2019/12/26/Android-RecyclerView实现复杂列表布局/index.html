@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.1.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Android RecyclerView实现复杂列表布局 - 月满轩尼诗的博客</title>
+
+
+    <meta name="description" content="​    这次学习的内容是使用RecyclerView来实现一些较为复杂的布局，比如一个item：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android RecyclerView实现复杂列表布局">
+<meta property="og:url" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;2019&#x2F;12&#x2F;26&#x2F;Android-RecyclerView%E5%AE%9E%E7%8E%B0%E5%A4%8D%E6%9D%82%E5%88%97%E8%A1%A8%E5%B8%83%E5%B1%80&#x2F;index.html">
+<meta property="og:site_name" content="月满轩尼诗的博客">
+<meta property="og:description" content="​    这次学习的内容是使用RecyclerView来实现一些较为复杂的布局，比如一个item：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;20191227&#x2F;android.png">
+<meta property="article:published_time" content="2019-12-26T03:30:27.000Z">
+<meta property="article:modified_time" content="2019-12-26T03:42:58.000Z">
+<meta property="article:author" content="2zyyyyy">
+<meta property="article:tag" content="移动开发">
+<meta property="article:tag" content="安卓">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;20191227&#x2F;android.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/star_logo.png">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-3-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Android RecyclerView实现复杂列表布局" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">Home</a>
+                
+                <a class="navbar-item"
+                href="/archives">Archives</a>
+                
+                <a class="navbar-item"
+                href="/categories">Categories</a>
+                
+                <a class="navbar-item"
+                href="/tags">Tags</a>
+                
+                <a class="navbar-item"
+                href="/about">About</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="https://github.com/2zyyyyy">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/20191227/android.png" alt="Android RecyclerView实现复杂列表布局">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-26T03:30:27.000Z">2019-12-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Android/">Android</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 分钟 读完 (大约 1012 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Android RecyclerView实现复杂列表布局
+            
+        </h1>
+        <div class="content">
+            <p>​    这次学习的内容是使用RecyclerView来实现一些较为复杂的布局，比如一个item：</p>
+<a id="more"></a>
+
+<p>最左边是一个imageview，中间部分为textView，textView下面又是一个textView，最右边为一个imageview。</p>
+<p><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTYxMjA1MTgzNzAxNTQy?x-oss-process=image/format,png" alt="这里写图片描述"><br>1、首先在activity_main.xml中添加RecyclerView，随后正如之前所说的分别针对左中右新建3个XML布局文件命名为item_type_one、two、three.随后对其进行布局配置。<br>2、新建一个adapter添加模拟数据。然后针对布局新建三个viewholder。随后新建一个抽象类TypeAbstractViewHolder，将三个viewholder用到的同一个方法封装起来调用,将三个viewHolder继承自抽象类。为了优雅。<br>activity_main.xml:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;RelativeLayout xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;</span><br><span class="line">    xmlns:tools&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&quot;</span><br><span class="line">    android:id&#x3D;&quot;@+id&#x2F;activity_main&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:paddingBottom&#x3D;&quot;@dimen&#x2F;activity_vertical_margin&quot;</span><br><span class="line">    android:paddingLeft&#x3D;&quot;@dimen&#x2F;activity_horizontal_margin&quot;</span><br><span class="line">    android:paddingRight&#x3D;&quot;@dimen&#x2F;activity_horizontal_margin&quot;</span><br><span class="line">    android:paddingTop&#x3D;&quot;@dimen&#x2F;activity_vertical_margin&quot;</span><br><span class="line">    tools:context&#x3D;&quot;com.example.tony.recyclerviewdemo.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;android.support.v7.widget.RecyclerView</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;recycleView&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;match_parent&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;android.support.v7.widget.RecyclerView&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;RelativeLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>item_type_one.xml:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;60dp&quot;</span><br><span class="line">    xmlns:tools&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&quot;</span><br><span class="line">    android:background&#x3D;&quot;@android:color&#x2F;white&quot;</span><br><span class="line">    android:gravity&#x3D;&quot;center_vertical&quot;</span><br><span class="line">    android:orientation&#x3D;&quot;horizontal&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;avatar&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;40dp&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;40dp&quot;</span><br><span class="line">        android:layout_marginLeft&#x3D;&quot;20dp&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;TextView</span><br><span class="line">        tools:text &#x3D; &quot;月满轩尼诗&quot;</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;name&quot;</span><br><span class="line">        android:layout_marginLeft&#x3D;&quot;20dp&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;wrap_content&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>item_type_two.xml:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;</span><br><span class="line">    xmlns:tools&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;60dp&quot;</span><br><span class="line">    android:background&#x3D;&quot;@android:color&#x2F;white&quot;</span><br><span class="line">    android:gravity&#x3D;&quot;center_vertical&quot;</span><br><span class="line">    android:orientation&#x3D;&quot;horizontal&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;avatar&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;40dp&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;40dp&quot;</span><br><span class="line">        android:layout_marginLeft&#x3D;&quot;20dp&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;LinearLayout</span><br><span class="line">        android:layout_marginLeft&#x3D;&quot;20dp&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:orientation&#x3D;&quot;vertical&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:id&#x3D;&quot;@+id&#x2F;name&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            tools:text&#x3D;&quot;月满轩尼诗&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:id&#x3D;&quot;@+id&#x2F;content&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_marginTop&#x3D;&quot;5dp&quot;</span><br><span class="line">            tools:text&#x3D;&quot;月满轩尼诗是一部好电影吗？&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;LinearLayout&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>item_type_three.xml:</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;RelativeLayout xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;</span><br><span class="line">    xmlns:tools&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;60dp&quot;</span><br><span class="line">    android:background&#x3D;&quot;@android:color&#x2F;white&quot;</span><br><span class="line">    android:gravity&#x3D;&quot;center_vertical&quot;</span><br><span class="line">    android:orientation&#x3D;&quot;horizontal&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;avatar&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;40dp&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;40dp&quot;</span><br><span class="line">        android:layout_centerVertical&#x3D;&quot;true&quot;</span><br><span class="line">        android:layout_marginLeft&#x3D;&quot;20dp&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id&#x3D;&quot;@+id&#x2F;contentImage&quot;</span><br><span class="line">        android:layout_width&#x3D;&quot;100dp&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;60dp&quot;</span><br><span class="line">        android:layout_alignParentRight&#x3D;&quot;true&quot;</span><br><span class="line">        android:layout_centerVertical&#x3D;&quot;true&quot;</span><br><span class="line">        android:layout_marginLeft&#x3D;&quot;20dp&quot;</span><br><span class="line">        android:layout_marginRight&#x3D;&quot;20dp&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;LinearLayout</span><br><span class="line">        android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">        android:layout_marginLeft&#x3D;&quot;20dp&quot;</span><br><span class="line">        android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">        android:layout_centerVertical&#x3D;&quot;true&quot;</span><br><span class="line">        android:layout_toRightOf&#x3D;&quot;@+id&#x2F;avatar&quot;</span><br><span class="line">        android:layout_toEndOf&#x3D;&quot;@+id&#x2F;avatar&quot;</span><br><span class="line">        android:layout_marginStart&#x3D;&quot;20dp&quot;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:id&#x3D;&quot;@+id&#x2F;name&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            tools:text&#x3D;&quot;月满轩尼诗&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;TextView</span><br><span class="line">            android:id&#x3D;&quot;@+id&#x2F;content&quot;</span><br><span class="line">            android:layout_width&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_height&#x3D;&quot;wrap_content&quot;</span><br><span class="line">            android:layout_marginTop&#x3D;&quot;5dp&quot;</span><br><span class="line">            tools:text&#x3D;&quot;月满轩尼诗是一部好电影吗？&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;LinearLayout&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;&#x2F;RelativeLayout&gt;</span><br></pre></td></tr></table></figure>
+<p>这边提一个小技巧，一般textview如果不设置文本内容的话是无法预览的，这里我们在属性中添加一个：tools:text=”abc”;<br>这个时候abc就会在UI上面显示出来了，而且abc也不用加入string.xml.</p>
+<p>Java文件：<br>MAinActivity.class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">package com.example.tony.recyclerviewdemo;</span><br><span class="line"></span><br><span class="line">import android.support.v7.app.AppCompatActivity;</span><br><span class="line">import android.os.Bundle;</span><br><span class="line">import android.support.v7.widget.LinearLayoutManager;</span><br><span class="line">import android.support.v7.widget.RecyclerView;</span><br><span class="line"></span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    private RecyclerView mRecyclerView;</span><br><span class="line"></span><br><span class="line">    private DemoAdapter mAdapter;</span><br><span class="line"></span><br><span class="line">    int colors[] &#x3D; &#123;android.R.color.holo_blue_light,</span><br><span class="line">                    android.R.color.holo_orange_light,</span><br><span class="line">                    android.R.color.holo_red_light&#125;;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        mRecyclerView &#x3D; (RecyclerView) findViewById(R.id.recycleView);</span><br><span class="line">        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,</span><br><span class="line">                LinearLayoutManager.VERTICAL, false));</span><br><span class="line">        mAdapter &#x3D; new DemoAdapter(this);</span><br><span class="line">        mRecyclerView.setAdapter(mAdapter);</span><br><span class="line"></span><br><span class="line">        initData();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void initData() &#123;</span><br><span class="line">        List&lt;DataModel&gt; list &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        for (int i &#x3D; 0; i &lt; 20; i++) &#123;</span><br><span class="line">            int type &#x3D; (int) (Math.random() * 3 + 1);</span><br><span class="line">            DataModel data &#x3D; new DataModel();</span><br><span class="line">            data.avatarColor &#x3D; colors[type - 1];</span><br><span class="line">            data.type &#x3D; type;</span><br><span class="line">            data.name &#x3D; &quot;Name: &quot; + i;</span><br><span class="line">            data.content &#x3D; &quot;Content: &quot; + i;</span><br><span class="line">            data.contentColor &#x3D; colors[(type + 1) % 3];</span><br><span class="line">            list.add(data);</span><br><span class="line">        &#125;</span><br><span class="line">        mAdapter.addList(list);</span><br><span class="line">        mAdapter.notifyDataSetChanged();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>DemoAdapter.class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package com.example.tony.recyclerviewdemo;</span><br><span class="line"></span><br><span class="line">import android.content.Context;</span><br><span class="line">import android.support.v7.widget.RecyclerView;</span><br><span class="line">import android.view.LayoutInflater;</span><br><span class="line">import android.view.ViewGroup;</span><br><span class="line"></span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">&#x2F;*</span><br><span class="line"> * Created by Tony on 2016&#x2F;12&#x2F;3.</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">public class DemoAdapter extends RecyclerView.Adapter&lt;RecyclerView.ViewHolder&gt;&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    private LayoutInflater mLayoutInflater;</span><br><span class="line"></span><br><span class="line">    private List&lt;DataModel&gt; mList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    public DemoAdapter(Context context) &#123;</span><br><span class="line">        mLayoutInflater &#x3D; LayoutInflater.from(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void addList(List&lt;DataModel&gt; list) &#123;</span><br><span class="line">        mList.addAll(list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) &#123;</span><br><span class="line">        switch (viewType) &#123;</span><br><span class="line">            case DataModel.TYPE_ONE:</span><br><span class="line">                return new TypeOneViewHolder(mLayoutInflater.inflate(R.layout.item_type_one, parent, false));</span><br><span class="line">            case DataModel.TYPE_TWO:</span><br><span class="line">                return new TypeTwoViewHolder(mLayoutInflater.inflate(R.layout.item_type_two, parent, false));</span><br><span class="line">            case DataModel.TYPE_THREE:</span><br><span class="line">                return new TypeThreeViewHolder(mLayoutInflater.inflate(R.layout.item_type_three, parent, false));</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) &#123;</span><br><span class="line">        ((TypeAbstractViewHolder) holder).bindHolder(mList.get(position));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int getItemViewType(int position) &#123;</span><br><span class="line">        return mList.get(position).type;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int getItemCount() &#123;</span><br><span class="line">        return mList.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>DataModel.class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package com.example.tony.recyclerviewdemo;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * Created by Tony on 2016&#x2F;12&#x2F;3.</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">public class DataModel &#123;</span><br><span class="line"></span><br><span class="line">    public static final int TYPE_ONE &#x3D; 1;</span><br><span class="line"></span><br><span class="line">    public static final int TYPE_TWO &#x3D; 2;</span><br><span class="line"></span><br><span class="line">    public static final int TYPE_THREE &#x3D; 3;</span><br><span class="line"></span><br><span class="line">    public int type;</span><br><span class="line"></span><br><span class="line">    public int avatarColor;</span><br><span class="line"></span><br><span class="line">    public String name;</span><br><span class="line"></span><br><span class="line">    public String content;</span><br><span class="line"></span><br><span class="line">    public int contentColor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TypeAbstractViewHolder.class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package com.example.tony.recyclerviewdemo;</span><br><span class="line"></span><br><span class="line">import android.support.v7.widget.RecyclerView;</span><br><span class="line">import android.view.View;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * Created by Tony on 2016&#x2F;12&#x2F;3.</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">public abstract class TypeAbstractViewHolder extends RecyclerView.ViewHolder&#123;</span><br><span class="line"></span><br><span class="line">    public TypeAbstractViewHolder(View itemView) &#123;</span><br><span class="line">        super(itemView);</span><br><span class="line">    &#125;</span><br><span class="line">    public abstract void bindHolder(DataModel model);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TypeOneViewHolder.class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package com.example.tony.recyclerviewdemo;</span><br><span class="line"></span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.ImageView;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * Created by Tony on 2016&#x2F;12&#x2F;3.</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">public class TypeOneViewHolder extends TypeAbstractViewHolder &#123;</span><br><span class="line"></span><br><span class="line">    private ImageView avatar;</span><br><span class="line"></span><br><span class="line">    private TextView name;</span><br><span class="line"></span><br><span class="line">    public TypeOneViewHolder(View itemView) &#123;</span><br><span class="line">        super(itemView);</span><br><span class="line"></span><br><span class="line">        avatar &#x3D; (ImageView) itemView.findViewById(R.id.avatar);</span><br><span class="line">        name &#x3D; (TextView) itemView.findViewById(R.id.name);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;ViewHolder数据和外面数据绑定起来</span><br><span class="line">    @Override</span><br><span class="line">    public void bindHolder(DataModel model) &#123;</span><br><span class="line">        avatar.setBackgroundResource(model.avatarColor);</span><br><span class="line">        name.setText(model.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TypeTwoViewHolder.class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">package com.example.tony.recyclerviewdemo;</span><br><span class="line"></span><br><span class="line">import android.support.v7.widget.RecyclerView;</span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.ImageView;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * Created by Tony on 2016&#x2F;12&#x2F;3.</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">public class TypeTwoViewHolder extends TypeAbstractViewHolder &#123;</span><br><span class="line"></span><br><span class="line">    private ImageView avatar;</span><br><span class="line"></span><br><span class="line">    private TextView name;</span><br><span class="line"></span><br><span class="line">    private TextView content;</span><br><span class="line"></span><br><span class="line">    public TypeTwoViewHolder(View itemView) &#123;</span><br><span class="line">        super(itemView);</span><br><span class="line"></span><br><span class="line">        avatar &#x3D; (ImageView) itemView.findViewById(R.id.avatar);</span><br><span class="line">        name &#x3D; (TextView) itemView.findViewById(R.id.name);</span><br><span class="line">        content &#x3D; (TextView) itemView.findViewById(R.id.content);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;ViewHolder数据和外面数据绑定起来</span><br><span class="line">    @Override</span><br><span class="line">    public void bindHolder(DataModel model) &#123;</span><br><span class="line">        avatar.setBackgroundResource(model.avatarColor);</span><br><span class="line">        name.setText(model.name);</span><br><span class="line">        content.setText(model.content);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TypeThreeViewHolder.class</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">package com.example.tony.recyclerviewdemo;</span><br><span class="line"></span><br><span class="line">import android.view.View;</span><br><span class="line">import android.widget.ImageView;</span><br><span class="line">import android.widget.TextView;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * Created by Tony on 2016&#x2F;12&#x2F;3.</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">public class TypeThreeViewHolder extends TypeAbstractViewHolder &#123;</span><br><span class="line"></span><br><span class="line">    private ImageView avatar;</span><br><span class="line"></span><br><span class="line">    private TextView name;</span><br><span class="line"></span><br><span class="line">    private TextView content;</span><br><span class="line"></span><br><span class="line">    private ImageView contentImage;</span><br><span class="line"></span><br><span class="line">    public TypeThreeViewHolder(View itemView) &#123;</span><br><span class="line">        super(itemView);</span><br><span class="line"></span><br><span class="line">        avatar &#x3D; (ImageView) itemView.findViewById(R.id.avatar);</span><br><span class="line">        contentImage &#x3D; (ImageView) itemView.findViewById(R.id.contentImage);</span><br><span class="line">        name &#x3D; (TextView) itemView.findViewById(R.id.name);</span><br><span class="line">        content &#x3D; (TextView) itemView.findViewById(R.id.content);</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F;ViewHolder数据和外面数据绑定起来</span><br><span class="line">    @Override</span><br><span class="line">    public void bindHolder(DataModel model) &#123;</span><br><span class="line">        avatar.setBackgroundResource(model.avatarColor);</span><br><span class="line">        name.setText(model.name);</span><br><span class="line">        contentImage.setBackgroundResource(model.contentColor);</span><br><span class="line">        content.setText(model.content);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/%E5%AE%89%E5%8D%93/" rel="tag">安卓</a>, <a class="has-link-grey -link" href="/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/" rel="tag">移动开发</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/12/25/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E5%BC%82%E5%B8%B8-554/">
+                <span class="level-item">自动化测试发送邮件异常</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: true,
+        verify: false,
+        app_id: 'Hcp5rbETAiz3thbwIg3y6bi0-gzGzoHsz',
+        app_key: 'EWXPJIEeuFdSYA9v6Ia6fvFm',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！吐槽一番吧！'
+    });
+</script>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="" src="/images/avatar.png" alt="月满轩尼诗">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        月满轩尼诗
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Tester
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>Hangzhou,China</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            4
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            3
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            6
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/2zyyyyy" target="_blank">
+                关注我</a>
+        </div>
+        
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="https://github.com/2zyyyyy">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Facebook" href="https://facebook.com">
+                
+                <i class="fab fa-facebook"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Twitter" href="https://twitter.com">
+                
+                <i class="fab fa-twitter"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Dribbble" href="https://dribbble.com">
+                
+                <i class="fab fa-dribbble"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            链接
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">github.com</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                分类
+            </h3>
+            <ul class="menu-list">
+            <li>
+        <a class="level is-marginless" href="/categories/Android/">
+            <span class="level-start">
+                <span class="level-item">Android</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/Python/">
+            <span class="level-start">
+                <span class="level-item">Python</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E5%85%B6%E4%BB%96/">
+            <span class="level-start">
+                <span class="level-item">其他</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">2</span>
+            </span>
+        </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            标签云
+        </h3>
+        <a href="/tags/Email/" style="font-size: 10px;">Email</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Smtplib/" style="font-size: 10px;">Smtplib</a> <a href="/tags/%E5%85%B6%E4%BB%96/" style="font-size: 20px;">其他</a> <a href="/tags/%E5%AE%89%E5%8D%93/" style="font-size: 10px;">安卓</a> <a href="/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/" style="font-size: 10px;">移动开发</a>
+    </div>
+</div>
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+            <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/12/26/Android-RecyclerView%E5%AE%9E%E7%8E%B0%E5%A4%8D%E6%9D%82%E5%88%97%E8%A1%A8%E5%B8%83%E5%B1%80/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/20191227/android.png" alt="Android RecyclerView实现复杂列表布局">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-26T03:30:27.000Z">2019-12-26</time></div>
+                    <a href="/2019/12/26/Android-RecyclerView%E5%AE%9E%E7%8E%B0%E5%A4%8D%E6%9D%82%E5%88%97%E8%A1%A8%E5%B8%83%E5%B1%80/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Android RecyclerView实现复杂列表布局</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Android/">Android</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/25/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E5%BC%82%E5%B8%B8-554/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/20191226/error_bg.png" alt="自动化测试发送邮件异常">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-25T09:29:17.000Z">2019-12-25</time></div>
+                    <a href="/2019/12/25/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E5%BC%82%E5%B8%B8-554/" class="title has-link-black-ter is-size-6 has-text-weight-normal">自动化测试发送邮件异常</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/20191225/test.png" alt="本地图片测试">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-25T06:58:17.000Z">2019-12-25</time></div>
+                    <a href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/" class="title has-link-black-ter is-size-6 has-text-weight-normal">本地图片测试</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/20191211/migrate.jpg" alt="我的第一篇Hexo博客">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-11T02:21:00.000Z">2019-12-11</time></div>
+                    <a href="/2019/12/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/" class="title has-link-black-ter is-size-6 has-text-weight-normal">我的第一篇Hexo博客</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+        
+            <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Email/">
+                        <span class="tag">Email</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Python/">
+                        <span class="tag">Python</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Smtplib/">
+                        <span class="tag">Smtplib</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%85%B6%E4%BB%96/">
+                        <span class="tag">其他</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AE%89%E5%8D%93/">
+                        <span class="tag">安卓</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">
+                        <span class="tag">移动开发</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+        
+        </div>
+    
+</div>
+
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        <div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/12/26/Android-RecyclerView%E5%AE%9E%E7%8E%B0%E5%A4%8D%E6%9D%82%E5%88%97%E8%A1%A8%E5%B8%83%E5%B1%80/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/20191227/android.png" alt="Android RecyclerView实现复杂列表布局">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-26T03:30:27.000Z">2019-12-26</time></div>
+                    <a href="/2019/12/26/Android-RecyclerView%E5%AE%9E%E7%8E%B0%E5%A4%8D%E6%9D%82%E5%88%97%E8%A1%A8%E5%B8%83%E5%B1%80/" class="title has-link-black-ter is-size-6 has-text-weight-normal">Android RecyclerView实现复杂列表布局</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Android/">Android</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/25/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E5%BC%82%E5%B8%B8-554/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/20191226/error_bg.png" alt="自动化测试发送邮件异常">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-25T09:29:17.000Z">2019-12-25</time></div>
+                    <a href="/2019/12/25/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6%E5%BC%82%E5%B8%B8-554/" class="title has-link-black-ter is-size-6 has-text-weight-normal">自动化测试发送邮件异常</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/Python/">Python</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/20191225/test.png" alt="本地图片测试">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-25T06:58:17.000Z">2019-12-25</time></div>
+                    <a href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/" class="title has-link-black-ter is-size-6 has-text-weight-normal">本地图片测试</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/12/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/20191211/migrate.jpg" alt="我的第一篇Hexo博客">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-11T02:21:00.000Z">2019-12-11</time></div>
+                    <a href="/2019/12/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/" class="title has-link-black-ter is-size-6 has-text-weight-normal">我的第一篇Hexo博客</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Email/">
+                        <span class="tag">Email</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Python/">
+                        <span class="tag">Python</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Smtplib/">
+                        <span class="tag">Smtplib</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%85%B6%E4%BB%96/">
+                        <span class="tag">其他</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E5%AE%89%E5%8D%93/">
+                        <span class="tag">安卓</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/%E7%A7%BB%E5%8A%A8%E5%BC%80%E5%8F%91/">
+                        <span class="tag">移动开发</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Android RecyclerView实现复杂列表布局" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2019 2zyyyyy&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+<script>
+var IcarusThemeSettings = {
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+    
+    
+<script src="/js/animation.js"></script>
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+    
+    
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/" target="_blank" rel="noopener">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+    
+    
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
