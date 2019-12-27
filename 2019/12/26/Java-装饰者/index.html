@@ -7,24 +7,23 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>分类: 其他 - 月满轩尼诗的博客</title>
+<title>Java 装饰者 - 月满轩尼诗的博客</title>
 
 
-    <meta name="description" content="Hexo 博客  主题--&gt;ICARUS">
-<meta property="og:type" content="website">
-<meta property="og:title" content="月满轩尼诗的博客">
-<meta property="og:url" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;categories&#x2F;%E5%85%B6%E4%BB%96&#x2F;index.html">
+    <meta name="description" content="Java 当中的io流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 装饰者">
+<meta property="og:url" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;2019&#x2F;12&#x2F;26&#x2F;Java-%E8%A3%85%E9%A5%B0%E8%80%85&#x2F;index.html">
 <meta property="og:site_name" content="月满轩尼诗的博客">
-<meta property="og:description" content="Hexo 博客  主题--&gt;ICARUS">
+<meta property="og:description" content="Java 当中的io流">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;og_image.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;20191227&#x2F;work.jpg">
+<meta property="article:published_time" content="2019-12-26T06:31:28.000Z">
+<meta property="article:modified_time" content="2019-12-26T06:36:10.000Z">
 <meta property="article:author" content="2zyyyyy">
-<meta property="article:tag" content="Hexo">
-<meta property="article:tag" content="Hexo个人博客">
-<meta property="article:tag" content="2zyyyyy个人博客">
-<meta property="article:tag" content="月满轩尼诗个人博客">
+<meta property="article:tag" content="学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;og_image.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;20191227&#x2F;work.jpg">
 
 
 
@@ -82,7 +81,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="月满轩尼诗的博客" height="28">
+                <img src="/images/logo.svg" alt="Java 装饰者" height="28">
             
             </a>
         </div>
@@ -131,136 +130,154 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/20191227/work.jpg" alt="Java 装饰者">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-12-26T06:31:28.000Z">2019-12-26</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/Java/">Java</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 800 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Java 装饰者
+            
+        </h1>
+        <div class="content">
+            <h2 id="Java-当中的io流"><a href="#Java-当中的io流" class="headerlink" title="Java 当中的io流"></a>Java 当中的io流</h2><a id="more"></a>
+
+<pre><code>今天记录下关于装饰者的学习</code></pre><p>一、处理流使用实例</p>
+<pre><code>1、本地新建一个users文本文档（刚入门没有使用IDE，都是在字符界面下进行编译和运行的，用文本文档进行代码的编写），内容如下：
+            张三 最强王者 850点
+            李四 超凡大师 700点
+            赵武 璀璨砖石 85点
+            王八 最强青铜  0点
+            刘六 不屈白银  25点
+            孙九 荣耀黄金  35点 //随便写的哈哈哈;
+            //目的就是使用节点流来读取文件（单位：行）；
+2、新建Test.java文件（.txt改一下后缀名即可，看不到的同学记得文件夹选项中点了显示已知文件和文件夹后缀名的选项；）下面贴代码：
+`//导入类</code></pre><figure class="highlight plain hljs"><figcaption><span>java.io.*;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">class Test&#123;</span><br><span class="line">	public static void main(String args [])&#123;</span><br><span class="line">		FileReader filereader &#x3D; null;</span><br><span class="line">		BufferedReader bufferedreader &#x3D; null;</span><br><span class="line">		try&#123;</span><br><span class="line">			filereader &#x3D; new FileReader(&quot;e:&#x2F;eclipse&#x2F;src&#x2F;2016.02.25&#x2F;users.txt&quot;);</span><br><span class="line">			bufferedreader &#x3D; new BufferedReader(filereader);</span><br><span class="line">			String line &#x3D; null;</span><br><span class="line">			while(true)&#123;</span><br><span class="line">				line &#x3D; bufferedreader.readLine();</span><br><span class="line">				if(line &#x3D;&#x3D; null)&#123;</span><br><span class="line">					break;</span><br><span class="line">				&#125;</span><br><span class="line">				System.out.println(line);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		catch(Exception e)&#123;</span><br><span class="line">			System.out.println(e);</span><br><span class="line">		&#125;</span><br><span class="line">		finally&#123;</span><br><span class="line">			try&#123;</span><br><span class="line">				filereader.close();</span><br><span class="line">				bufferedreader.close();</span><br><span class="line">			&#125;</span><br><span class="line">			catch(Exception e)&#123;</span><br><span class="line">				System.out.println(e);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;&#96;</span><br></pre></td></tr></table></figure>
+<pre><code>3、编译运行 ==》win+R -- cmd -- 文件件路径输进去 -- javac *.java -- java Test
+        结果就是![运行结果](http://img.blog.csdn.net/20160302145715612)</code></pre><p>二：“装饰者”模式<br>        1、举个Mars老师的例子吧  就是有一个工人的类  下面又分为各种工人比如说（水管工 木匠工 等等）<br>              然后工人们又分为有A 公司的，B公司的，C公司的一次类推，如果每个工人都要写一个类的话，我们假设有N个工种，有M个公司，那么我们需要新建的class的个数就是：M*N个 这点很明显不符合计算机语言的做法，编程就是去繁化简，争取消灭所有的重复性的代码。因此就需要用到“装饰者”模式了。<br>        2、新建一个接口名为 Aworker：</p>
+<figure class="highlight plain hljs"><figcaption><span>Worker&#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">		public void doSomeWorker();</span><br><span class="line">&#125;  </span><br><span class="line">		   新建水管工、木匠工、A公司、B公司类</span><br><span class="line">		   &#x2F;&#x2F;水管工</span><br><span class="line">		   </span><br><span class="line">		   class Plumber implements Worker&#123;</span><br><span class="line">	public void doSomeWorker()&#123;</span><br><span class="line">		System.out.println(&quot;修水管！！！&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">		  &#x2F;&#x2F;木匠工</span><br><span class="line">		</span><br><span class="line">		class Carpenter implements Worker&#123;</span><br><span class="line">	public void doSomeWorker()&#123;</span><br><span class="line">		System.out.println(&quot;修门窗！！！&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">		  &#x2F;&#x2F;A公司</span><br><span class="line">		  </span><br><span class="line">		  class Aworker implements Worker&#123;</span><br><span class="line">	private Worker worker;</span><br><span class="line">	public Aworker(Worker worker)&#123;</span><br><span class="line">		this.worker &#x3D; worker;</span><br><span class="line">	&#125;</span><br><span class="line">	public void doSomeWorker()&#123;</span><br><span class="line">		System.out.println(&quot;你好&quot;);</span><br><span class="line">		worker.doSomeWorker();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">		  &#x2F;&#x2F;B公司</span><br><span class="line">		  </span><br><span class="line">		  class Bworker implements Worker&#123;</span><br><span class="line">	private Worker worker;</span><br><span class="line">	public Bworker(Worker worker)&#123;</span><br><span class="line">		this.worker &#x3D; worker;</span><br><span class="line">	&#125;</span><br><span class="line">	public void doSomeWorker()&#123;</span><br><span class="line">		System.out.println(&quot;我要带鞋套@@@@&quot;);</span><br><span class="line">		worker.doSomeWorker();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>最后新建一个主函数来运行程序</code></pre><p>​    </p>
+<figure class="highlight plain hljs"><figcaption><span>Test01&#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	public static void main(String args [])&#123;</span><br><span class="line">		&#x2F;&#x2F;生成一个A公司水管工的对象</span><br><span class="line">		Plumber plumber &#x3D; new Plumber();</span><br><span class="line">		Aworker aworker1 &#x3D; new Aworker(plumber);</span><br><span class="line">		aworker1.doSomeWorker();</span><br><span class="line">		</span><br><span class="line">		&#x2F;&#x2F;生成一个B公司的木匠工对象</span><br><span class="line">		Carpenter carpenter &#x3D; new Carpenter();</span><br><span class="line">		Bworker bworker1 &#x3D; new Bworker(carpenter);</span><br><span class="line">		bworker1.doSomeWorker();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code>运行结果：![运行结果](http://img.blog.csdn.net/20160302151838939)</code></pre><p>三、节点流与处理流之间的关系<br>        FileReader在（被装饰者）就是节点流，是真正读取数据的（单位：字符）  而处理流（装饰者）就是用来 给节点流添加功能的 ，使得前者可以一行一行的读取数据（BufferedReader）.</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/categories">分类</a></li>
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
             
-            <li class="is-active"><a href="#" aria-current="page">其他</a></li>
-        </ul>
-        </nav>
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="微信"></div>
+</a>
+
+                
+        </div>
     </div>
 </div>
 
-    
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/12/27/Allure%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Allure测试报告</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/12/26/Java-%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">
+                <span class="level-item">Java-图书管理系统</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
 <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/" class="image is-7by1">
-            <img class="thumbnail" src="/images/20191225/test.png" alt="本地图片测试">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-12-25T06:58:17.000Z">2019-12-25</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    1 分钟 读完 (大约 134 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/">本地图片测试</a>
-            
-        </h1>
-        <div class="content">
-            <p>测试图片显示<br>本地图片显示测试</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/12/25/%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
+<div id="valine-thread" class="content"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#valine-thread' ,
+        notify: true,
+        verify: false,
+        app_id: 'Hcp5rbETAiz3thbwIg3y6bi0-gzGzoHsz',
+        app_key: 'EWXPJIEeuFdSYA9v6Ia6fvFm',
+        placeholder: 'ヾﾉ≧∀≦)o 来呀！吐槽一番吧！'
+    });
+</script>
+
     </div>
 </div>
-
-
-
-
-
-
-
-
-    
-<div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/12/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/" class="image is-7by1">
-            <img class="thumbnail" src="/images/20191211/migrate.jpg" alt="我的第一篇Hexo博客">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-12-11T02:21:00.000Z">2019-12-11</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    几秒 读完 (大约 83 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/12/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/">我的第一篇Hexo博客</a>
-            
-        </h1>
-        <div class="content">
-            <p>原CSDN博客迁移说明<br><a href="https://blog.csdn.net/qq_31568297" target="_blank" rel="noopener">https://blog.csdn.net/qq_31568297</a> </p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/12/11/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87hexo%E5%8D%9A%E5%AE%A2/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 </div>
                 
 
@@ -935,7 +952,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="月满轩尼诗的博客" height="28">
+                    <img src="/images/logo.svg" alt="Java 装饰者" height="28">
                 
                 </a>
                 <p class="is-size-7">
