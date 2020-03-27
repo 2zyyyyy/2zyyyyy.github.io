@@ -10,16 +10,16 @@
 <title>数据平台基础记录 - 月满轩尼诗的博客</title>
 
 
-    <meta name="description" content="ETL(Extraction-Transformation-Loading) 数据抽取、转换和加载  ODS —— 操作性数据  DW —— 数据仓库  DM —— 数据集市">
+    <meta name="description" content="1、基本概念ETL(Extraction-Transformation-Loading) 数据抽取、转换和加载  ODS —— 操作性数据  DW —— 数据仓库  DM —— 数据集市">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据平台基础记录">
 <meta property="og:url" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;2020&#x2F;01&#x2F;07&#x2F;%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0%E5%9F%BA%E7%A1%80%E8%AE%B0%E5%BD%95&#x2F;index.html">
 <meta property="og:site_name" content="月满轩尼诗的博客">
-<meta property="og:description" content="ETL(Extraction-Transformation-Loading) 数据抽取、转换和加载  ODS —— 操作性数据  DW —— 数据仓库  DM —— 数据集市">
+<meta property="og:description" content="1、基本概念ETL(Extraction-Transformation-Loading) 数据抽取、转换和加载  ODS —— 操作性数据  DW —— 数据仓库  DM —— 数据集市">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;2zyyyyy.github.io&#x2F;images&#x2F;20200107&#x2F;cover.jpg">
 <meta property="article:published_time" content="2020-01-07T03:41:44.000Z">
-<meta property="article:modified_time" content="2020-01-07T04:30:07.000Z">
+<meta property="article:modified_time" content="2020-03-27T09:10:24.000Z">
 <meta property="article:author" content="2zyyyyy">
 <meta property="article:tag" content="数据">
 <meta property="article:tag" content="大数据测试">
@@ -154,7 +154,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 624 个字)
+                    4 分钟 读完 (大约 619 个字)
                 </span>
                 
                 
@@ -167,7 +167,7 @@
             
         </h1>
         <div class="content">
-            <p>ETL(Extraction-Transformation-Loading) 数据抽取、转换和加载</p>
+            <h1 id="1、基本概念"><a href="#1、基本概念" class="headerlink" title="1、基本概念"></a>1、基本概念</h1><p>ETL(Extraction-Transformation-Loading) 数据抽取、转换和加载</p>
 <ul>
 <li><p>ODS —— 操作性数据</p>
 </li>
@@ -179,22 +179,18 @@
 </li>
 </ul>
 <p><img src="https://tva1.sinaimg.cn/large/006tNbRwgy1ganvwx1078j31g50u0guk.jpg" alt="网友整理"></p>
-<ul>
-<li>模糊查询表名 </li>
-</ul>
-<p>show tables like ‘<em>name</em>‘ </p>
-<ul>
-<li>查看表结构信息 </li>
-</ul>
-<p>desc formatted 表名 </p>
-<p>统计数据验证 </p>
-<p>1、基础数据 </p>
-<p>新增用户  /  活跃用户  /  启动/访问次数  /  人均使用时长 </p>
+<h1 id="2、常用查询"><a href="#2、常用查询" class="headerlink" title="2、常用查询"></a>2、常用查询</h1><p>模糊查询表名 </p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">show</span> <span class="hljs-keyword">tables</span> <span class="hljs-keyword">like</span> <span class="hljs-string">'*name*'</span></span><br></pre></td></tr></table></figure>
+
+<p>查看表结构信息 </p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">desc formatted 表名</span><br></pre></td></tr></table></figure>
+
+<h1 id="3、日活数据统计"><a href="#3、日活数据统计" class="headerlink" title="3、日活数据统计"></a>3、日活数据统计</h1><h2 id="3-1、基础数据"><a href="#3-1、基础数据" class="headerlink" title="3.1、基础数据"></a>3.1、基础数据</h2><p>新增用户  /  活跃用户  /  启动/访问次数  /  人均使用时长 </p>
 <ul>
 <li><p>检查数据发现当用户未登录状态时，写入的user_event.user_id为空  统计结果时未作区分 20190816当天数据都是未登录状态下产生的 统计结果新增和活跃用户均为：1 </p>
 </li>
 <li><p>查询当日活跃用户数量 「表名」-「user_page」 </p>
-<p><code>SELECT count(*) as total FROM (SELECT count(*) FROM datacenter.user_event where created_ymd = &#39;20190819&#39; GROUP BY user_id) a ;</code> </p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">count</span>(*) <span class="hljs-keyword">as</span> total <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">count</span>(*) <span class="hljs-keyword">FROM</span> datacenter.user_event <span class="hljs-keyword">where</span> created_ymd = <span class="hljs-string">'20190819'</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> user_id) a ;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>统计当日页面停留时长 </p>
 <p>1️⃣规则：有A、B两个页面 统计页面停留时长  A页面停留时长=B.开始时间 - A.开始时间  B页面停留时长=B.end_time - b.start_time </p>
@@ -204,52 +200,14 @@
 <p>– 时间不允许就用了比较麻烦的办法 一共三条SQL </p>
 <p>– ①先查询出当日所有活跃用户数 ②在查询出当日生成的所有trackID③计算每个trackID的时长（因为最后一条数据是需要end_time-start_time 所以单独计算）所有trackID相加为当日用户在线时长 </p>
 <p>– ① 统计当日活跃用户数 </p>
-<p><code>SELECT COUNT(*) AS &#39;当日活跃用户数&#39; FROM (SELECT * FROM datacenter.user_page where created_ymd = &#39;20190819&#39; GROUP BY track_id) a;</code> </p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">COUNT</span>(*) <span class="hljs-keyword">AS</span> <span class="hljs-string">'当日活跃用户数'</span> <span class="hljs-keyword">FROM</span> (<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> datacenter.user_page <span class="hljs-keyword">where</span> created_ymd = <span class="hljs-string">'20190819'</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> track_id) a;</span><br></pre></td></tr></table></figure>
+
 <p>– ②查询当日所有trackID </p>
-<p><code>SELECT</code> </p>
-<p>​    <code>track_id</code> </p>
-<p><code>FROM</code> </p>
-<p>​    <code>datacenter.user_page</code> </p>
-<p><code>WHERE</code> </p>
-<p>​    <code>created_ymd = &#39;20190922&#39;</code> </p>
-<p><code>GROUP BY</code> </p>
-<p>​    <code>track_id;</code> </p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">SELECT</span> track_id <span class="hljs-keyword">FROM</span> datacenter.user_page <span class="hljs-keyword">WHERE</span> created_ymd = <span class="hljs-string">'20190922'</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> track_id;</span><br></pre></td></tr></table></figure>
+
 <p># ③计算某个trackid的时长（2结果相加为当前trackID时长） </p>
-<p><code>SELECT</code> </p>
-<p>​    <code>sum(</code> </p>
-<p>​        <code>(</code> </p>
-<p>​            <code>UNIX_TIMESTAMP(e.start_time) - UNIX_TIMESTAMP(b.start_time)</code> </p>
-<p>​        <code>)</code> </p>
-<p>​    <code>) AS &#39;当前trackID时长&#39;, (SELECT</code> </p>
-<p>​    <code>(UNIX_TIMESTAMP(end_time) - UNIX_TIMESTAMP((start_time))) AS &#39;最后一条时长&#39; FROM datacenter.user_page WHERE track_id = &#39;135A6B1B-E35A-4CA4-953E-E670F6339AE3&#39;</code> </p>
-<p><code>ORDER BY</code> </p>
-<p>​    <code>start_time DESC</code> </p>
-<p><code>LIMIT 1) AS &#39;最后一条的时长&#39;</code> </p>
-<p><code>FROM</code> </p>
-<p>​    <code>(</code> </p>
-<p>​        <code>SELECT</code> </p>
-<p>​            <code>a.start_time,</code> </p>
-<p>​            <code>(@i := @i + 1) AS ord_num</code> </p>
-<p>​        <code>FROM</code> </p>
-<p>​            <code>user_page a,</code> </p>
-<p>​            <code>(SELECT @i := 1) d</code> </p>
-<p>​        <code>WHERE</code> </p>
-<p>​        <code>a.track_id = &#39;135A6B1B-E35A-4CA4-953E-E670F6339AE3&#39;</code> </p>
-<p>​        <code>ORDER BY</code> </p>
-<p>​            <code>a.start_time</code> </p>
-<p>​    <code>) b</code> </p>
-<p><code>INNER JOIN (</code> </p>
-<p>​    <code>SELECT</code> </p>
-<p>​        <code>a.start_time,</code> </p>
-<p>​        <code>(@j := @j + 1) AS ord_num</code> </p>
-<p>​    <code>FROM</code> </p>
-<p>​        <code>user_page a,</code> </p>
-<p>​        <code>(SELECT @j := 0) c</code> </p>
-<p>​    <code>WHERE</code> </p>
-<p>​    <code>a.track_id = &#39;135A6B1B-E35A-4CA4-953E-E670F6339AE3&#39;</code> </p>
-<p>​    <code>ORDER BY</code> </p>
-<p>​        <code>a.start_time</code> </p>
-<p><code>) e ON b.ord_num = e.ord_num;</code> </p>
+<figure class="highlight sql hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">SELECT</span></span><br><span class="line">	<span class="hljs-keyword">sum</span>( ( <span class="hljs-keyword">UNIX_TIMESTAMP</span>( e.start_time ) - <span class="hljs-keyword">UNIX_TIMESTAMP</span>( b.start_time ) ) ) <span class="hljs-keyword">AS</span> <span class="hljs-string">'当前trackID时长'</span>,</span><br><span class="line">	(</span><br><span class="line">	<span class="hljs-keyword">SELECT</span></span><br><span class="line">		( <span class="hljs-keyword">UNIX_TIMESTAMP</span>( end_time ) - <span class="hljs-keyword">UNIX_TIMESTAMP</span>( ( start_time ) ) ) <span class="hljs-keyword">AS</span> <span class="hljs-string">'最后一条时长'</span> </span><br><span class="line">	<span class="hljs-keyword">FROM</span></span><br><span class="line">		datacenter.user_page </span><br><span class="line">	<span class="hljs-keyword">WHERE</span></span><br><span class="line">		track_id = <span class="hljs-string">'135A6B1B-E35A-4CA4-953E-E670F6339AE3'</span> </span><br><span class="line">	<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span></span><br><span class="line">		start_time <span class="hljs-keyword">DESC</span> </span><br><span class="line">		<span class="hljs-keyword">LIMIT</span> <span class="hljs-number">1</span> </span><br><span class="line">	) <span class="hljs-keyword">AS</span> <span class="hljs-string">'最后一条的时长'</span> </span><br><span class="line"><span class="hljs-keyword">FROM</span></span><br><span class="line">	(</span><br><span class="line">	<span class="hljs-keyword">SELECT</span></span><br><span class="line">		a.start_time,</span><br><span class="line">		( @i := @i + <span class="hljs-number">1</span> ) <span class="hljs-keyword">AS</span> ord_num </span><br><span class="line">	<span class="hljs-keyword">FROM</span></span><br><span class="line">		user_page a,</span><br><span class="line">		( <span class="hljs-keyword">SELECT</span> @i := <span class="hljs-number">1</span> ) d </span><br><span class="line">	<span class="hljs-keyword">WHERE</span></span><br><span class="line">		a.track_id = <span class="hljs-string">'135A6B1B-E35A-4CA4-953E-E670F6339AE3'</span> </span><br><span class="line">	<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span></span><br><span class="line">		​ a.start_time ​ </span><br><span class="line">	) b</span><br><span class="line">	<span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> (</span><br><span class="line">		​ <span class="hljs-keyword">SELECT</span></span><br><span class="line">		​ a.start_time,</span><br><span class="line">		​ ( @j := @j + <span class="hljs-number">1</span> ) <span class="hljs-keyword">AS</span> ord_num ​ </span><br><span class="line">	<span class="hljs-keyword">FROM</span></span><br><span class="line">		​ user_page a,</span><br><span class="line">		​ ( <span class="hljs-keyword">SELECT</span> @j := <span class="hljs-number">0</span> ) c </span><br><span class="line">	<span class="hljs-keyword">WHERE</span></span><br><span class="line">		​ a.track_id = <span class="hljs-string">'135A6B1B-E35A-4CA4-953E-E670F6339AE3'</span> ​ </span><br><span class="line">	<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span></span><br><span class="line">	​ a.start_time </span><br><span class="line">	) e <span class="hljs-keyword">ON</span> b.ord_num = e.ord_num;</span><br></pre></td></tr></table></figure>
+
 
         </div>
         
